@@ -1,16 +1,16 @@
 import { P, css, type RGB } from '../art/palette';
 import { Pixels, rampPick } from '../art/dither';
 import { drawText } from '../art/font';
-import { drawUnai } from '../art/actor';
-import { UNAI_DIALOGUE } from '../content/dialogues';
+import { drawUnai, drawBlanca } from '../art/actor';
+import { UNAI_DIALOGUE, BLANCA_DIALOGUE } from '../content/dialogues';
 import type { Room, NPC, Hotspot, Exit } from '../engine/types';
 
 // ----------------------------------------------------------------
 //  SALA 1 — EL AULA de 4º de la ESO (Corazonistas).
-//  Aquí empieza todo: Unai te suelta el plan y te da el pendrive,
-//  y por el suelo rueda la moneda para la máquina de café.
-//  Pizarra verde al fondo, ventana con luz, pupitres y la puerta
-//  al pasillo a la derecha.
+//  Aquí empieza todo: Unai te suelta el PLAN y Blanca te dará el
+//  pendrive con el examen fácil a cambio de la partitura de Pantxo.
+//  Pizarra verde con el examen de naturales, ventana, pupitres y la
+//  puerta al pasillo a la derecha.
 // ----------------------------------------------------------------
 
 function r(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, c: RGB) {
@@ -49,13 +49,13 @@ export function buildAulaScene(): HTMLCanvasElement {
   r(ctx, 15, 38, 54, 3, [60, 50, 40]);       // cruceta horizontal
 
   // pizarra verde al fondo-centro
-  r(ctx, 110, 14, 150, 52, [42, 34, 26]);    // marco madera
-  r(ctx, 114, 18, 142, 44, P.schoolGreen);
-  r(ctx, 114, 18, 142, 2, [128, 158, 118]);
-  r(ctx, 114, 58, 142, 4, P.schoolGreenD);   // canaleta de tizas
+  r(ctx, 108, 12, 156, 54, [42, 34, 26]);    // marco madera
+  r(ctx, 112, 16, 148, 46, P.schoolGreen);
+  r(ctx, 112, 16, 148, 2, [128, 158, 118]);
+  r(ctx, 112, 58, 148, 4, P.schoolGreenD);   // canaleta de tizas
   // tiza (fuente bitmap del motor para no romper el look pixel)
-  drawText(ctx, 'EXAMEN  MANANA', 130, 26, [224, 228, 218], 1, null, 1);
-  drawText(ctx, 'Tema 7: derivadas', 130, 42, [196, 214, 190], 1, null, 1);
+  drawText(ctx, 'EXAMEN  MANANA', 128, 24, [224, 228, 218], 1, null, 1);
+  drawText(ctx, 'El suelo sedimentario', 120, 40, [196, 214, 190], 1, null, 1);
 
   // suelo de baldosas
   r(ctx, 0, 96, 320, 48, P.tile);
@@ -63,9 +63,8 @@ export function buildAulaScene(): HTMLCanvasElement {
   for (let y = 102; y < 144; y += 8) for (let x = ((y / 8) % 2) * 12; x < 320; x += 24) r(ctx, x, y, 22, 1, P.tileD);
 
   // pupitres repartidos
-  pupitre(ctx, 150, 104);
-  pupitre(ctx, 196, 116);
-  pupitre(ctx, 244, 104);
+  pupitre(ctx, 150, 106);
+  pupitre(ctx, 244, 106);
 
   // puerta al pasillo (derecha)
   r(ctx, 276, 40, 34, 56, [120, 92, 60]);    // hoja
@@ -77,28 +76,12 @@ export function buildAulaScene(): HTMLCanvasElement {
   return cv;
 }
 
-// La moneda en el suelo, bajo el pupitre del centro, hasta cogerla.
-export function drawMoneda(ctx: CanvasRenderingContext2D) {
-  ctx.fillStyle = css(P.tileD);
-  ctx.beginPath(); ctx.ellipse(206, 138, 4, 2, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = css([214, 188, 110]);
-  ctx.beginPath(); ctx.arc(205, 137, 3, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = css(P.sunCore);
-  ctx.fillRect(204, 136, 1, 1);
-}
-
 const HOTSPOTS: Hotspot[] = [
-  {
-    id: 'moneda', name: 'una moneda', x: 198, y: 132, w: 16, h: 12, walkTo: { x: 206, y: 140 },
-    look: 'Una moneda de 1 euro, escondida bajo un pupitre. Alguien la dio por perdida. Su error, mi suerte.',
-    pickup: { id: 'moneda', name: 'una moneda de 1 euro' },
-    responses: { Coger: 'Mia. Esto va directo a la maquina de cafe del pasillo.' },
-  },
-  { id: 'pizarra', name: 'la pizarra', x: 110, y: 14, w: 150, h: 52, walkTo: { x: 150, y: 138 },
-    look: '"EXAMEN MANANA. Tema 7: derivadas." Cada letra me da un escalofrio. No he abierto el libro.' },
+  { id: 'pizarra', name: 'la pizarra', x: 108, y: 12, w: 156, h: 54, walkTo: { x: 150, y: 138 },
+    look: '"EXAMEN MANANA. El suelo sedimentario." Estratos, arcillas, areniscas... y yo sin saber por donde respira un sedimento.' },
   { id: 'ventana', name: 'la ventana', x: 12, y: 18, w: 60, h: 44, walkTo: { x: 44, y: 138 },
-    look: 'El patio. La libertad esta a un cristal de distancia. Pero primero, el examen.' },
-  { id: 'pupitres', name: 'los pupitres', x: 150, y: 104, w: 120, h: 30, walkTo: { x: 220, y: 140 },
+    look: 'El patio. La libertad esta a un cristal de distancia. Pero primero, sobrevivir al examen.' },
+  { id: 'pupitres', name: 'los pupitres', x: 150, y: 106, w: 120, h: 30, walkTo: { x: 180, y: 140 },
     look: 'Pupitres rayados con corazones, formulas y algun insulto a Gema. La historia del aula.' },
 ];
 
@@ -109,8 +92,24 @@ const NPCS: NPC[] = [
     look: 'Unai, mi colega. Rubio, gafas y una sonrisa de "lo tengo todo pensado". Da un poco de miedo.',
     draw: drawUnai, dialogue: UNAI_DIALOGUE,
     accepts: {
-      moneda: { line: 'No, la moneda guardatela tu, que es para la maquina. Yo pongo el cerebro, no el dinero.' },
-      cafe: { line: 'Ese cafe no es para mi, crack. Es para Gema. Centrate.' },
+      partitura: { line: 'Eh, la partitura no es para mi, es para Blanca. Yo solo pongo las ideas, crack.' },
+      cafe: { line: 'Ese cafe es para Gema, no para mi. Centrate en el plan.' },
+    },
+  },
+  {
+    id: 'blanca', name: 'Blanca', x: 222, y: 80, w: 28, h: 52,
+    feet: { x: 236, y: 132 }, walkTo: { x: 210, y: 138 }, facing: 'left', color: [240, 220, 150],
+    look: 'Blanca, la mas lista de la clase. Siempre con un libro. Tiene el pendrive con el examen facil... y un precio.',
+    draw: drawBlanca, dialogue: BLANCA_DIALOGUE,
+    accepts: {
+      // Le das la partitura de Pantxo -> te da el pendrive (usb) con el examen facil.
+      partitura: {
+        line: '¡La letra entera! Eres mi salvador, Eneko. Trato es trato: aqui tienes el pendrive con el examen facil. No lo pierdas.',
+        give: 'usb',
+        remove: ['partitura'],
+        flag: 'tiene_usb',
+      },
+      cafe: { line: 'Gracias, pero yo con cafe no duermo. Guardalo para quien lo necesite.' },
     },
   },
 ];
@@ -122,7 +121,6 @@ const EXITS: Exit[] = [
 export const AULA: Room = {
   id: 'aula',
   build: buildAulaScene,
-  dynamic: (ctx, state) => { if (!state.flags.took_moneda) drawMoneda(ctx); },
   hotspots: HOTSPOTS,
   npcs: NPCS,
   exits: EXITS,

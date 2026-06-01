@@ -104,6 +104,34 @@ export const P = {
   tileD:        [172, 168, 158] as RGB,
   lockerBlue:   [108, 130, 150] as RGB,
   lockerBlueD:  [80, 100, 120]  as RGB,
+
+  // --- personajes nuevos ---
+  // Blanca: companera china, estudiosa. Pelo negro, rebeca mostaza.
+  blancaHair:   [38, 32, 36]   as RGB,
+  blancaHairLt: [70, 60, 64]   as RGB,
+  blancaTop:    [214, 176, 84] as RGB,
+  blancaTopSh:  [176, 138, 56] as RGB,
+  blancaSkin:   [240, 206, 168] as RGB,
+  blancaSkinSh: [206, 168, 130] as RGB,
+  // Pantxo: profe cantante, camisa morada vistosa, bigote.
+  pantxoShirt:  [128, 78, 132] as RGB,
+  pantxoShirtSh:[96, 54, 100]  as RGB,
+  pantxoHair:   [70, 56, 44]   as RGB,
+  pantxoTie:    [200, 80, 70]  as RGB,
+  // Alfonso: profe de gimnasia, chandal granate y blanco, silbato.
+  alfTrack:     [156, 56, 52]  as RGB,
+  alfTrackSh:   [118, 40, 38]  as RGB,
+  alfStripe:    [228, 224, 216] as RGB,
+  alfHair:      [60, 52, 46]   as RGB,
+  // gimnasio: espalderas de madera, colchonetas, suelo de parquet
+  gymWall:      [196, 186, 158] as RGB,
+  gymWallSh:    [172, 160, 132] as RGB,
+  gymBar:       [188, 150, 96]  as RGB,
+  gymBarSh:     [150, 116, 70]  as RGB,
+  gymMat:       [70, 110, 150]  as RGB,
+  gymMatSh:     [52, 86, 120]   as RGB,
+  gymFloor:     [196, 158, 104] as RGB,
+  gymFloorSh:   [170, 132, 82]  as RGB,
 };
 
 export function css(c: RGB): string {

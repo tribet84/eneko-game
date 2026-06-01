@@ -16,15 +16,28 @@ con, Dar...), haz clic en el escenario o en un personaje, y combina objetos del
 inventario. El objetivo es resolver la cadena del puzzle:
 
 ```
-Aula      → habla con Unai (te da el plan y el pendrive con el examen fácil)
-          → coge la moneda del suelo
-Pasillo   → mete la moneda en la máquina de café → coge el café
+Aula      → Unai te explica el PLAN (café + cambiazo de examen)
+          → Blanca te dará su pendrive con el examen fácil... si le traes
+            la partitura de la canción de Pantxo
+Pasillo   → Pantxo te da la partitura si le halagas el canto
+          → la máquina de café necesita una moneda → café
+Gimnasio  → Alfonso ("el que lo intenta tiene un 5"): intenta el ejercicio
+            en las espalderas y podrás coger la moneda del suelo
 Sala de   → dale el café a Gema teniendo el pendrive en la mano:
 profesores   mientras se distrae con el primer sorbo, haces el cambiazo. FIN.
 ```
 
-El truco está en el final: necesitas **el café Y el pendrive a la vez**. Con uno
-solo, Gema te pilla.
+El examen es de **naturales: el suelo sedimentario**. El truco final: necesitas
+**el café Y el pendrive a la vez**. Con uno solo, Gema te pilla.
+
+### Personajes
+
+- **Eneko** — protagonista, 4º de la ESO, cara dura nivel experto.
+- **Unai** — su colega, el cerebro del plan.
+- **Blanca** — la más lista de clase; tiene el examen fácil.
+- **Pantxo** — profe enamorado de su propia voz; guarda la partitura.
+- **Alfonso** — profe de gimnasia; sin sudar no hay moneda.
+- **Gema** — la profe de naturales a la que hay que ablandar.
 
 ## Desarrollo
 
@@ -38,10 +51,10 @@ npx tsc --noEmit # type-check
 ### Estructura
 
 - `src/config.ts` — título, música por sala, caja "Acerca de".
-- `src/rooms/` — una sala por archivo (`aula`, `pasillo`, `sala`) + `index.ts`.
-- `src/content/items.ts` — objetos del inventario (moneda, café, pendrive).
-- `src/content/dialogues.ts` — árboles de diálogo de Unai y Gema.
-- `src/art/actor.ts` — sprites de Eneko, Unai y Gema (pixel art en código).
+- `src/rooms/` — una sala por archivo (`aula`, `pasillo`, `gimnasio`, `sala`) + `index.ts`.
+- `src/content/items.ts` — objetos del inventario (moneda, café, pendrive, partitura).
+- `src/content/dialogues.ts` — árboles de diálogo de Unai, Blanca, Pantxo, Alfonso y Gema.
+- `src/art/actor.ts` — sprites de Eneko, Unai, Blanca, Pantxo, Alfonso y Gema (pixel art en código).
 - `src/screens/title.ts` — la portada (la fachada del cole al atardecer).
 - `src/engine/`, `src/scumm/`, `src/audio/`, `src/main.ts` — el motor genérico.
 

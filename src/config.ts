@@ -19,7 +19,7 @@ export const CONFIG = {
   // --- Per-scene music ---
   // Map de room id -> tema ('town' | 'gate' | 'sardana' | 'medieval').
   // El jugador puede cambiarlo desde el selector de canciones del juego.
-  roomTheme: { aula: 'town', pasillo: 'gate', sala: 'medieval' } as Record<string, string>,
+  roomTheme: { aula: 'town', pasillo: 'gate', gimnasio: 'sardana', sala: 'medieval' } as Record<string, string>,
   defaultTheme: 'town',
 
   // --- Save slot (localStorage). Único por juego. ---

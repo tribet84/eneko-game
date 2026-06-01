@@ -59,6 +59,22 @@ export const ITEMS: Record<string, { name: string; draw: Draw }> = {
       ctx.fillRect(x + 5, y + 10, 1, 2);
     },
   },
+
+  // Partitura con la letra de la cancion de Pantxo (para Blanca).
+  partitura: {
+    name: 'la partitura de Pantxo',
+    draw: (ctx, x, y) => {
+      ctx.fillStyle = css([238, 232, 218]);           // hoja
+      ctx.fillRect(x + 4, y + 3, 12, 15);
+      ctx.fillStyle = css([200, 192, 174]);           // sombra hoja
+      ctx.fillRect(x + 14, y + 3, 2, 15);
+      ctx.fillStyle = css([90, 84, 76]);              // pentagrama
+      for (let i = 0; i < 4; i++) ctx.fillRect(x + 6, y + 6 + i * 3, 8, 1);
+      ctx.fillStyle = css(P.black);                   // notas
+      ctx.fillRect(x + 7, y + 8, 2, 2); ctx.fillRect(x + 8, y + 5, 1, 3);
+      ctx.fillRect(x + 11, y + 11, 2, 2); ctx.fillRect(x + 12, y + 8, 1, 3);
+    },
+  },
 };
 
 export function makeItem(id: string) {

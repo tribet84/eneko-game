@@ -164,3 +164,149 @@ export function drawGema(ctx: CanvasRenderingContext2D, fx: number, fy: number, 
 
   ctx.restore();
 }
+
+// ----------------------------------------------------------------
+//  BLANCA — companera de Eneko, china y la mas lista de clase.
+//  Melena negra estilo bob, rebeca mostaza, y siempre con un libro
+//  en la mano. Tiene el USB con el examen facil.
+// ----------------------------------------------------------------
+export function drawBlanca(ctx: CanvasRenderingContext2D, fx: number, fy: number, facing: 'left' | 'right' = 'left', t = 0) {
+  const cx = Math.round(fx);
+  const fyR = Math.round(fy);
+  const bob = Math.sin(t * 1.5) > 0.93 ? 1 : 0;
+  ctx.save();
+  if (facing === 'left') { ctx.translate(cx * 2, 0); ctx.scale(-1, 1); }
+
+  // falda + piernas + zapatos
+  blk(ctx, cx - 6, fyR - 19, 13, 9, [60, 56, 70]);          // falda
+  blk(ctx, cx - 5, fyR - 11, 4, 9, P.blancaSkinSh);
+  blk(ctx, cx + 1, fyR - 11, 4, 9, P.blancaSkinSh);
+  blk(ctx, cx - 6, fyR - 3, 5, 3, [40, 36, 40]);
+  blk(ctx, cx + 1, fyR - 3, 5, 3, [40, 36, 40]);
+
+  // torso (rebeca mostaza)
+  const ty = fyR - 36 + bob;
+  blk(ctx, cx - 6, ty, 13, 19, P.blancaTop);
+  px(ctx, cx - 5, ty + 1, 2, 17, P.blancaTopSh);
+  px(ctx, cx + 3, ty + 1, 2, 17, P.blancaTopSh);
+  // brazos + libro que sujeta
+  blk(ctx, cx - 9, ty + 3, 4, 12, P.blancaTop);
+  blk(ctx, cx + 6, ty + 3, 4, 12, P.blancaTop);
+  px(ctx, cx - 9, ty + 13, 4, 3, P.blancaSkin);
+  blk(ctx, cx - 4, ty + 11, 10, 6, [200, 70, 64]);          // libro (tapa roja)
+  px(ctx, cx - 3, ty + 12, 8, 4, [232, 226, 214]);          // paginas
+
+  // cuello + cabeza
+  px(ctx, cx - 2, ty - 2, 4, 3, P.blancaSkin);
+  const hy = fyR - 48 + bob;
+  blk(ctx, cx - 5, hy, 10, 11, P.blancaSkin);
+  px(ctx, cx - 4, hy + 1, 3, 9, P.blancaSkinSh);
+  // melena negra tipo bob, recta
+  px(ctx, cx - 6, hy - 2, 12, 5, P.blancaHair);
+  px(ctx, cx - 6, hy, 2, 11, P.blancaHair);
+  px(ctx, cx + 4, hy, 2, 11, P.blancaHair);
+  px(ctx, cx - 5, hy + 1, 11, 2, P.blancaHair);             // flequillo
+  px(ctx, cx - 6, hy + 1, 2, 3, P.blancaHairLt);
+  px(ctx, cx - 2, hy + 5, 1, 1, P.black);                   // ojos
+  px(ctx, cx + 2, hy + 5, 1, 1, P.black);
+  px(ctx, cx - 1, hy + 8, 3, 1, P.blancaSkinSh);            // boca
+
+  ctx.restore();
+}
+
+// ----------------------------------------------------------------
+//  PANTXO — el profesor al que le encanta cantar. Camisa morada,
+//  corbata roja, bigote y la boca abierta en plena nota. Brazo
+//  levantado como si dirigiera un coro invisible.
+// ----------------------------------------------------------------
+export function drawPantxo(ctx: CanvasRenderingContext2D, fx: number, fy: number, facing: 'left' | 'right' = 'right', t = 0) {
+  const cx = Math.round(fx);
+  const fyR = Math.round(fy);
+  const sing = Math.sin(t * 3) * 1.5;                       // se balancea cantando
+  const bob = Math.sin(t * 3) > 0.4 ? 1 : 0;
+  ctx.save();
+  if (facing === 'left') { ctx.translate(cx * 2, 0); ctx.scale(-1, 1); }
+
+  // pantalon + zapatos
+  blk(ctx, cx - 6, fyR - 18, 6, 16, [60, 56, 66]);
+  blk(ctx, cx + 1, fyR - 18, 6, 16, [60, 56, 66]);
+  blk(ctx, cx - 7, fyR - 4, 7, 4, [40, 36, 36]);
+  blk(ctx, cx + 0, fyR - 4, 7, 4, [40, 36, 36]);
+
+  // torso (camisa morada) + corbata
+  const ty = fyR - 36 + bob;
+  blk(ctx, cx - 8, ty, 16, 20, P.pantxoShirt);
+  px(ctx, cx - 6, ty + 1, 3, 18, P.pantxoShirtSh);
+  px(ctx, cx - 1, ty + 1, 3, 13, P.pantxoTie);              // corbata
+  px(ctx, cx - 1, ty + 12, 3, 2, [160, 56, 50]);
+  // un brazo abajo, otro levantado dirigiendo
+  blk(ctx, cx - 11, ty + 3, 4, 13, P.pantxoShirt);
+  px(ctx, cx - 11, ty + 14, 4, 3, P.skin);
+  blk(ctx, cx + 7, ty - 6 + Math.round(sing), 4, 12, P.pantxoShirt);  // brazo en alto
+  px(ctx, cx + 7, ty - 8 + Math.round(sing), 4, 3, P.skin);
+
+  // cuello + cabeza cantando
+  px(ctx, cx - 2, ty - 2, 4, 3, P.skin);
+  const hy = fyR - 47 + bob;
+  blk(ctx, cx - 5, hy, 11, 11, P.skin);
+  px(ctx, cx - 4, hy + 1, 3, 9, P.skinShadow);
+  px(ctx, cx - 5, hy - 2, 12, 4, P.pantxoHair);             // pelo
+  px(ctx, cx + 4, hy, 2, 3, P.pantxoHair);
+  px(ctx, cx - 3, hy + 6, 8, 1, P.pantxoHair);              // bigote
+  px(ctx, cx - 2, hy + 4, 1, 2, P.black);                   // ojos
+  px(ctx, cx + 3, hy + 4, 1, 2, P.black);
+  blk(ctx, cx, hy + 8, 3, 3, [120, 40, 44]);                // boca abierta (nota)
+  // notita musical flotando
+  px(ctx, cx + 11, hy - 3 + Math.round(sing), 2, 2, P.black);
+  px(ctx, cx + 12, hy - 7 + Math.round(sing), 1, 4, P.black);
+
+  ctx.restore();
+}
+
+// ----------------------------------------------------------------
+//  ALFONSO — profe de gimnasia. Chandal granate con franja blanca,
+//  silbato al cuello, complexion robusta y postura firme. Lema:
+//  "el que lo intenta tiene un 5".
+// ----------------------------------------------------------------
+export function drawAlfonso(ctx: CanvasRenderingContext2D, fx: number, fy: number, facing: 'left' | 'right' = 'left', t = 0) {
+  const cx = Math.round(fx);
+  const fyR = Math.round(fy);
+  const bob = Math.sin(t * 1.7) > 0.95 ? 1 : 0;
+  ctx.save();
+  if (facing === 'left') { ctx.translate(cx * 2, 0); ctx.scale(-1, 1); }
+
+  // pantalon de chandal + franja + zapatillas
+  blk(ctx, cx - 7, fyR - 20, 6, 18, P.alfTrack);
+  blk(ctx, cx + 1, fyR - 20, 6, 18, P.alfTrack);
+  px(ctx, cx - 6, fyR - 19, 1, 16, P.alfStripe);            // franjas laterales
+  px(ctx, cx + 6, fyR - 19, 1, 16, P.alfStripe);
+  blk(ctx, cx - 8, fyR - 4, 8, 4, P.alfStripe);             // zapatillas blancas
+  blk(ctx, cx + 0, fyR - 4, 8, 4, P.alfStripe);
+
+  // torso (chaqueta de chandal) robusto
+  const ty = fyR - 38 + bob;
+  blk(ctx, cx - 9, ty, 18, 21, P.alfTrack);
+  px(ctx, cx - 7, ty + 1, 3, 19, P.alfTrackSh);
+  px(ctx, cx - 1, ty, 2, 21, P.alfStripe);                 // cremallera/franja central
+  // brazos cruzados (chulesco)
+  blk(ctx, cx - 12, ty + 3, 4, 13, P.alfTrack);
+  blk(ctx, cx + 8, ty + 3, 4, 13, P.alfTrack);
+  px(ctx, cx - 8, ty + 8, 16, 3, P.alfTrackSh);            // antebrazos cruzados
+  px(ctx, cx - 5, ty + 9, 3, 2, P.skin);
+  px(ctx, cx + 3, ty + 9, 3, 2, P.skin);
+  // silbato al cuello
+  px(ctx, cx - 1, ty - 1, 2, 5, [70, 70, 76]);              // cordon
+  px(ctx, cx + 1, ty + 3, 3, 2, [220, 200, 90]);            // silbato
+
+  // cuello + cabeza
+  px(ctx, cx - 2, ty - 3, 4, 3, P.skin);
+  const hy = fyR - 50 + bob;
+  blk(ctx, cx - 5, hy, 11, 11, P.skin);
+  px(ctx, cx - 4, hy + 1, 3, 9, P.skinShadow);
+  px(ctx, cx - 5, hy - 1, 11, 2, P.alfHair);               // pelo corto
+  px(ctx, cx - 5, hy, 2, 3, P.alfHair);
+  px(ctx, cx - 2, hy + 4, 1, 2, P.black);                  // ojos
+  px(ctx, cx + 3, hy + 4, 1, 2, P.black);
+  px(ctx, cx - 3, hy + 7, 7, 1, P.skinShadow);             // boca seria
+  ctx.restore();
+}
