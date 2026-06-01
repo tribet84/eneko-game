@@ -1,0 +1,15 @@
+{
+  "name": "Operacion Gema",
+  "short_name": "Op. Gema",
+  "description": "Aventura grafica point-and-click: Eneko ablanda a su profe Gema con la ayuda de Unai.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#231018",
+  "theme_color": "#231018",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
